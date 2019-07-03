@@ -1,0 +1,8 @@
+- constraint object
+  - null object
+  - zero object (zero, "", empty, etc)
+  - more generaly .equalsTo and ref==
+  - build from json
+
+- spec language for strings? Dates? Enums?
+- primitives?
