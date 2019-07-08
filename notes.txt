@@ -1,8 +1,18 @@
-- constraint object
+- generator(constraint) object
   - null object
   - zero object (zero, "", empty, etc)
   - more generaly .equalsTo and ref==
   - build from json
 
+- How to replace interpreters? By type only?
+- What about streams or any other param-d type?
+  - focus on collections/maps for now.
+
+- move to org.roblr
+
+- charset support object to abstract unif.
+  dist over union of integer ranges (UTF-8)
+
 - spec language for strings? Dates? Enums?
+
 - primitives?
