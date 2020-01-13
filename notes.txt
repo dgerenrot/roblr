@@ -29,3 +29,4 @@
 - What if A <- B, A <- C (so u have C.a and B.a
                           different type, same field name)
 - onesies?
+- Class names: what of generics?
