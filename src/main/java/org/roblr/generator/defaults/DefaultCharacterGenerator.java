@@ -1,5 +1,6 @@
 package org.roblr.generator.defaults;
 
+import org.roblr.Rng;
 import org.roblr.exceptions.NotImplementedException;
 import org.roblr.generator.Generator;
 

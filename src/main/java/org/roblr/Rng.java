@@ -1,4 +1,4 @@
-package org.roblr.generator.defaults;
+package org.roblr;
 
 import java.util.Random;
 

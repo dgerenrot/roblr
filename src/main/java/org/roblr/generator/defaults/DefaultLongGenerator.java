@@ -1,5 +1,6 @@
 package org.roblr.generator.defaults;
 
+    import org.roblr.Rng;
     import org.roblr.generator.Generator;
 
 public class DefaultLongGenerator implements Generator<Long> {

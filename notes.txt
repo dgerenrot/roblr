@@ -30,3 +30,8 @@
                           different type, same field name)
 - onesies?
 - Class names: what of generics?
+- Generator rename to supplier?
+- fasterxml for JSONinig
+- field-specific generators: if there is only one
+  class, fieldName is more specific. Otherwise, option for warning
+  exception
