@@ -1,7 +1,7 @@
-package org.jozin.generator.defaults;
+package org.roblr.generator.defaults;
 
-import org.jozin.exceptions.NotImplementedException;
-import org.jozin.generator.Generator;
+import org.roblr.exceptions.NotImplementedException;
+import org.roblr.generator.Generator;
 
 import java.nio.charset.Charset;
 

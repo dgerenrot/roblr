@@ -1,4 +1,4 @@
-package org.jozin.exceptions;
+package org.roblr.exceptions;
 
 public class NotImplementedException extends RuntimeException {
   public NotImplementedException() {

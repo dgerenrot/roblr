@@ -1,4 +1,4 @@
-package org.jozin.classalias;
+package org.roblr.classalias;
 
 public class ClassAlreadyRegisteredException extends RuntimeException {
     private String clazz;

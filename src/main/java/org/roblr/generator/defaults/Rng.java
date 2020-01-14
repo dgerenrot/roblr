@@ -1,4 +1,4 @@
-package org.jozin.generator.defaults;
+package org.roblr.generator.defaults;
 
 import java.util.Random;
 

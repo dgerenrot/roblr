@@ -1,4 +1,4 @@
-package org.jozin.generator;
+package org.roblr.generator;
 
 public interface Generator<T> {
   T generate();

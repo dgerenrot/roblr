@@ -1,4 +1,4 @@
-package org.jozin.classalias;
+package org.roblr.classalias;
 
 import java.util.Collection;
 import java.util.HashMap;

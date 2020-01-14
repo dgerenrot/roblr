@@ -1,4 +1,4 @@
-package org.jozin.classalias;
+package org.roblr.classalias;
 
 public interface ClassRegistry {
     void register(String alias, String className) throws ClassNotFoundException;

@@ -1,4 +1,4 @@
-package org.jozin.classalias;
+package org.roblr.classalias;
 
 public class AliasAlreadyRegisteredException extends RuntimeException {
     private String alias;

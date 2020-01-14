@@ -1,6 +1,6 @@
-package org.jozin.generator.defaults;
+package org.roblr.generator.defaults;
 
-    import org.jozin.generator.Generator;
+    import org.roblr.generator.Generator;
 
 public class DefaultByteGenerator implements Generator<Byte> {
 
