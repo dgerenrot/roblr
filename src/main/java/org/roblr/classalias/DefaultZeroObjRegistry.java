@@ -8,15 +8,21 @@ public class DefaultZeroObjRegistry {
     private ClassRegistry classRegistry;
 
     private boolean allEmptyMaps;
+
     private boolean allEmptyCollections;
 
     public DefaultZeroObjRegistry() {
         byClass = new HashMap<>();
-        initDefaults();
+        initDefaults(new DefaultClassRegistry());
     }
 
-    public void initDefaults() {
-        classRegistry = new DefaultClassRegistry();
+    public DefaultZeroObjRegistry(ClassRegistry classRegistry) {
+        byClass = new HashMap<>();
+        initDefaults(classRegistry);
+    }
+
+    public void initDefaults(ClassRegistry classRegistry) {
+        this.classRegistry = classRegistry != null ? classRegistry : new  DefaultClassRegistry();
         allEmptyMaps = true;
         allEmptyCollections = true;
         byClass.put(String.class, "");
