@@ -5,12 +5,11 @@ public class Config {
     /**
      *
      */
-    public enum FieldVsClassResolutonPolicy {
+    public enum FieldVsClassResolutionPolicy {
         /**
          * Field-based generator always come winners,
          * even if there are multiple classes with the
          * same field name.
-         *
          */
         FIELD_WINS,
 
@@ -21,26 +20,27 @@ public class Config {
         CLASS_WINS,
 
         /**
-         *  In case of multiple classes with same field name, throw an exception
-         *  when a conflict arises. This would force the user to specify
-         *  field-and-class based generator.
+         * In case of multiple classes with same field name, throw an exception
+         * when a conflict arises. This would force the user to specify
+         * field-and-class based generator.
          */
         FORCE_SPECIFY;
     }
 
-    private FieldVsClassResolutonPolicy fieldAlwaysBeatsClass;
+    private FieldVsClassResolutionPolicy fieldAlwaysBeatsClass;
     private int defaultIdLengthBytes = 4;
 
     /**
      * Specifies whether the fieldName-based generator is always more
      * specific than the ClassName - based even when there
+     *
      * @return
      */
-    public FieldVsClassResolutonPolicy isFieldAlwaysBeatsClass() {
+    public FieldVsClassResolutionPolicy isFieldAlwaysBeatsClass() {
         return fieldAlwaysBeatsClass;
     }
 
-    public void setFieldAlwaysBeatsClass(FieldVsClassResolutonPolicy fieldAlwaysBeatsClass) {
+    public void setFieldAlwaysBeatsClass(FieldVsClassResolutionPolicy fieldAlwaysBeatsClass) {
         this.fieldAlwaysBeatsClass = fieldAlwaysBeatsClass;
     }
 
