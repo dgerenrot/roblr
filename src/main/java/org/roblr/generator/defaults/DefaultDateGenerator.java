@@ -1,6 +1,7 @@
 package org.roblr.generator.defaults;
 
 import org.roblr.Rng;
+import org.roblr.exceptions.NotImplementedException;
 import org.roblr.generator.Generator;
 
 import java.util.Calendar;
@@ -19,5 +20,10 @@ public class DefaultDateGenerator implements Generator<Date> {
         calendar.set(year, month, date);
 
         return calendar.getTime();
+    }
+
+    @Override
+    public <S> S generate(Class<S> clazz) {
+        throw new NotImplementedException();
     }
 }

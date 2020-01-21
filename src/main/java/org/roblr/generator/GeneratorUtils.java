@@ -2,6 +2,7 @@ package org.roblr.generator;
 
 import com.google.gson.Gson;
 import org.apache.commons.lang3.SerializationUtils;
+import org.roblr.exceptions.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +32,11 @@ public class GeneratorUtils {
     public Object generate() {
       return null;
     }
+
+    @Override
+    public Object generate(Class clazz) {
+      return null;
+    }
   };
 
   public <T> Generator<T> nullGenerator() {
@@ -44,7 +50,12 @@ public class GeneratorUtils {
       public T generate() {
         return objToReturn;
       }
-    } ;
+
+      @Override
+      public <S> S generate(Class<S> clazz) {
+        return null;
+      }
+    };
   }
 
   // TODO
@@ -85,6 +96,11 @@ public class GeneratorUtils {
 
         Gson gson = new Gson();
         return (T) gson.fromJson(gson.toJson(objToReturn), Object.class);
+      }
+
+      @Override
+      public <S> S generate(Class<S> clazz) {
+        throw new NotImplementedException();
       }
     };
   }

@@ -1,6 +1,7 @@
 package org.roblr.generator.defaults;
 
 import org.roblr.Rng;
+import org.roblr.exceptions.NotImplementedException;
 import org.roblr.generator.Generator;
 
 public class DefaultStringGenerator implements Generator<String> {
@@ -12,7 +13,7 @@ public class DefaultStringGenerator implements Generator<String> {
 
     @Override
     public String generate() {
-        return null;
+        return generateUpToLength(8);
     }
 
     public String generateUpToLength(int upTo) {
@@ -23,5 +24,10 @@ public class DefaultStringGenerator implements Generator<String> {
         String retVal = sb.toString();
         sb.setLength(0);
         return retVal;
+    }
+
+    @Override
+    public <S> S generate(Class<S> clazz) {
+        throw new NotImplementedException();
     }
 }

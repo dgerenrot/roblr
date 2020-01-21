@@ -67,4 +67,8 @@ public class DefaultCharacterGenerator implements Generator<Character> {
             .charAt(Rng.instance().nextInt(USKBD_NOT_DIGIT_LETTER_BLANK.length()));
   }
 
+  @Override
+  public <S> S generate(Class<S> clazz) {
+    throw new NotImplementedException();
+  }
 }
