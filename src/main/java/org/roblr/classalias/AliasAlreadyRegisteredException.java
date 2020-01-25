@@ -8,6 +8,7 @@ public class AliasAlreadyRegisteredException extends RuntimeException {
     }
 
     public AliasAlreadyRegisteredException(String msg, String alias) {
+        
         super((msg != null && msg.length() > 0 ?  msg : "") +
                String.format(" [%s %s]", AliasAlreadyRegisteredException.class.getSimpleName(), alias));
 

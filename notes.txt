@@ -37,9 +37,11 @@
   exception
 - Stack unavoidable?
 - Object generation and fiend generation are separate concepts, after all;
-- Rewrite isSUperclass thing
+- Rewrite isSuperclass thing
 - isPublic/Private/Etc, isPrimitive, isBuiltin?
 - field train generator dilemma?
 - lookahead before using deflt field generator?
 - most of them are somebody's fields
 - AtomicBoolean, AtomicInt, etc? (l8r)
+- simply specify the relations
+- field adjectives: yes, no unspecified? Three values

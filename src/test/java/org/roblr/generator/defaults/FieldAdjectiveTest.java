@@ -59,6 +59,7 @@ public class FieldAdjectiveTest {
         f = TestClass.class.getDeclaredField("protectedNotBuiltin");
         assertEquals(EnumSet.of(PROTECTED), FieldAdjective.getAdjectives(f));
     }
+
     private void testPrimitivableClass(Class<?> clazz) {
         assertTrue(getAdjectives(clazz).contains(FieldAdjective.PRIMITIVABLE));
         assertFalse(getAdjectives(clazz).contains(FieldAdjective.PRIMITIVE));
