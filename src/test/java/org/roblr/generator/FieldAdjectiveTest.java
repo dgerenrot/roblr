@@ -1,14 +1,14 @@
-package org.roblr.generator.defaults;
+package org.roblr.generator;
 
-import org.junit.Assert;
 import org.junit.Test;
+import org.roblr.generator.FieldAdjective;
 
 import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.EnumSet;
 
 import static org.junit.Assert.*;
-import static org.roblr.generator.defaults.FieldAdjective.*;
+import static org.roblr.generator.FieldAdjective.*;
 
 public class FieldAdjectiveTest {
 

@@ -45,3 +45,4 @@
 - AtomicBoolean, AtomicInt, etc? (l8r)
 - simply specify the relations
 - field adjectives: yes, no unspecified? Three values
+- Unique zero obj per class?
