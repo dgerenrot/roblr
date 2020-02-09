@@ -46,3 +46,5 @@
 - simply specify the relations
 - field adjectives: yes, no unspecified? Three values
 - Unique zero obj per class?
+- Inject Roblr into every builder,
+  registry, etc. (instead several registries)?

@@ -1,6 +1,6 @@
 package org.roblr.builder;
 
-import org.roblr.classalias.ClassRegistry;
+import org.roblr.Roblr;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +13,13 @@ public class DefaultObjectSpec implements ObjectSpec {
     private Map<String, String> relAliases;
     private Map<String, String> fieldsSpecs;
     private Object value;
-    private ObjectRegistry objectRegistry;
-    private ClassRegistry classRegistry;
+    private Roblr roblr;
+
+    public DefaultObjectSpec(Roblr roblr) {
+        this();
+
+        this.roblr = roblr;
+    }
 
     public DefaultObjectSpec() {
         relAliases = new HashMap<>();
@@ -47,7 +52,7 @@ public class DefaultObjectSpec implements ObjectSpec {
     @Override
     public ObjectSpec getRelatedObj(String name) {
         String id = relAliases.get(name);
-        return objectRegistry.getById(id);
+        return roblr.getObjectRegistry().getById(id);
     }
 
     public void setRelation(String name, String id) {
@@ -73,19 +78,12 @@ public class DefaultObjectSpec implements ObjectSpec {
         return value;
     }
 
-    public ObjectRegistry getObjectRegistry() {
-        return objectRegistry;
+    public Roblr getRoblr() {
+        return roblr;
     }
 
-    public void setObjectRegistry(ObjectRegistry objectRegistry) {
-        this.objectRegistry = objectRegistry;
+    public void setRoblr(Roblr roblr) {
+        this.roblr = roblr;
     }
 
-    public ClassRegistry getClassRegistry() {
-        return classRegistry;
-    }
-
-    public void setClassRegistry(ClassRegistry classRegistry) {
-        this.classRegistry = classRegistry;
-    }
 }

@@ -2,6 +2,7 @@ package org.roblr;
 
 
 import com.google.gson.Gson;
+import org.roblr.builder.ObjectRegistry;
 import org.roblr.classalias.ClassRegistry;
 import org.roblr.classalias.DefaultClassRegistry;
 import org.roblr.classalias.DefaultZeroObjRegistry;
@@ -10,6 +11,7 @@ public class Roblr {
     private Config config;
     private ClassRegistry classRegistry;
     private DefaultZeroObjRegistry zeroObjRegistry;
+    private ObjectRegistry objectRegistry;
 
     public Roblr() {
         this.config = new Config();
@@ -41,7 +43,7 @@ public class Roblr {
         classRegistry.register(alias, clazz);
     }
 
-    private String generateId() {
+    public String generateId() {
         byte[] bytes = new byte[config.getDefaultIdLengthBytes()];
         Rng.instance().nextBytes(bytes);
 
@@ -62,5 +64,29 @@ public class Roblr {
         for (int i = 0; i < 10; i++) {
             System.out.println(r.generateId());
         }
+    }
+
+    public ClassRegistry getClassRegistry() {
+        return classRegistry;
+    }
+
+    public void setClassRegistry(ClassRegistry classRegistry) {
+        this.classRegistry = classRegistry;
+    }
+
+    public DefaultZeroObjRegistry getZeroObjRegistry() {
+        return zeroObjRegistry;
+    }
+
+    public void setZeroObjRegistry(DefaultZeroObjRegistry zeroObjRegistry) {
+        this.zeroObjRegistry = zeroObjRegistry;
+    }
+
+    public ObjectRegistry getObjectRegistry() {
+        return objectRegistry;
+    }
+
+    public void setObjectRegistry(ObjectRegistry objectRegistry) {
+        this.objectRegistry = objectRegistry;
     }
 }
