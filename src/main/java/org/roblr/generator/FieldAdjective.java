@@ -18,7 +18,9 @@ public enum FieldAdjective {
     FINAL(Modifier.PRIVATE),
     PRIMITIVE(null),
     PRIMITIVABLE(null),
-    BUILTIN(null);
+    BUILTIN(null),
+    PUBLIC_SETTER(null),
+    CONSTRUCTOR_ARG(null);
 
     private Integer modifier;
     private static final Set<String> BUILTIN_CLASS_NAMES
