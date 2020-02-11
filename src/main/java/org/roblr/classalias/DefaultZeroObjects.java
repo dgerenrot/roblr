@@ -2,7 +2,7 @@ package org.roblr.classalias;
 
 import java.util.*;
 
-public class DefaultZeroObjRegistry {
+public class DefaultZeroObjects {
     private Map<Class, Object> byClass;
 
     private ClassRegistry classRegistry;
@@ -11,12 +11,12 @@ public class DefaultZeroObjRegistry {
 
     private boolean allEmptyCollections;
 
-    public DefaultZeroObjRegistry() {
+    public DefaultZeroObjects() {
         byClass = new HashMap<>();
         initDefaults(new DefaultClassRegistry());
     }
 
-    public DefaultZeroObjRegistry(ClassRegistry classRegistry) {
+    public DefaultZeroObjects(ClassRegistry classRegistry) {
         byClass = new HashMap<>();
         initDefaults(classRegistry);
     }

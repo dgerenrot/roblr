@@ -50,16 +50,16 @@ public class DefaultObjectSpec implements ObjectSpec {
     }
 
     @Override
-    public ObjectSpec getRelatedObj(String name) {
+    public ObjectSpec getRelatedObjSpec(String name) {
         String id = relAliases.get(name);
-        return roblr.getObjectRegistry().getById(id);
+        return roblr.getObjectRegistry().get(id);
     }
 
-    public void setRelation(String name, String id) {
+    public void setRelatedObjId(String name, String id) {
         relAliases.put(name, id);
     }
 
-    public void setRelation(String name, ObjectSpec objectSpec) {
+    public void setRelatedObjSpec(String name, ObjectSpec objectSpec) {
         relAliases.put(name, objectSpec.getId());
     }
 

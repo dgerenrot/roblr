@@ -5,7 +5,7 @@ import org.roblr.classalias.ClassRegistry;
 public class RelBuilder {
     private ObjectSpecBuilder from;
     private ObjectSpecBuilder to;
-    private ObjectRegistry objectRegistry;
+    private ObjectSpecRegistry objectRegistry;
     private ClassRegistry classRegistry;
     private String relName;
     private boolean isReverse;
@@ -38,11 +38,11 @@ public class RelBuilder {
         this.relName = relName;
     }
 
-    public ObjectRegistry getObjectRegistry() {
+    public ObjectSpecRegistry getObjectRegistry() {
         return objectRegistry;
     }
 
-    public void setObjectRegistry(ObjectRegistry objectRegistry) {
+    public void setObjectRegistry(ObjectSpecRegistry objectRegistry) {
         this.objectRegistry = objectRegistry;
     }
 

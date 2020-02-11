@@ -8,10 +8,10 @@ public interface ObjectSpec {
     void setObjectClassName(String name);
 
     String getRelatedObjId(String name);
-    ObjectSpec getRelatedObj(String name);
-    void setRelation(String name, String id);
-    void setRelation(String name, ObjectSpec objectSpec);
-
+    ObjectSpec getRelatedObjSpec(String name);
+    void setRelatedObjId(String name, String id);
+    void setRelatedObjSpec(String name, ObjectSpec objectSpec);
+    // no deletes?
     String getFieldSpec(String name);
     void setFieldSpec(String name, String spec);
 

@@ -2,21 +2,21 @@ package org.roblr;
 
 
 import com.google.gson.Gson;
-import org.roblr.builder.ObjectRegistry;
+import org.roblr.builder.ObjectSpecRegistry;
 import org.roblr.classalias.ClassRegistry;
 import org.roblr.classalias.DefaultClassRegistry;
-import org.roblr.classalias.DefaultZeroObjRegistry;
+import org.roblr.classalias.DefaultZeroObjects;
 
 public class Roblr {
     private Config config;
     private ClassRegistry classRegistry;
-    private DefaultZeroObjRegistry zeroObjRegistry;
-    private ObjectRegistry objectRegistry;
+    private DefaultZeroObjects zeroObjRegistry;
+    private ObjectSpecRegistry objectRegistry;
 
     public Roblr() {
         this.config = new Config();
         this.classRegistry = new DefaultClassRegistry();
-        this.zeroObjRegistry = new DefaultZeroObjRegistry();
+        this.zeroObjRegistry = new DefaultZeroObjects();
     }
 
     public Config getConfig() {
@@ -32,7 +32,7 @@ public class Roblr {
             throw new IllegalArgumentException("Duplicate entry for class " + clazz);
         }
 
-        classRegistry.register(alias, clazz);
+        classRegistry.put(alias, clazz);
     }
 
     public void setClassAlias(String alias, String clazz) throws ClassNotFoundException {
@@ -40,7 +40,7 @@ public class Roblr {
             throw new IllegalArgumentException("Duplicate entry for class " + clazz);
         }
 
-        classRegistry.register(alias, clazz);
+        classRegistry.putClassName(alias, clazz);
     }
 
     public String generateId() {
@@ -55,6 +55,30 @@ public class Roblr {
         return sb.toString();
     }
 
+    public ClassRegistry getClassRegistry() {
+        return classRegistry;
+    }
+
+    public void setClassRegistry(ClassRegistry classRegistry) {
+        this.classRegistry = classRegistry;
+    }
+
+    public DefaultZeroObjects getZeroObjRegistry() {
+        return zeroObjRegistry;
+    }
+
+    public void setZeroObjRegistry(DefaultZeroObjects zeroObjRegistry) {
+        this.zeroObjRegistry = zeroObjRegistry;
+    }
+
+    public ObjectSpecRegistry getObjectRegistry() {
+        return objectRegistry;
+    }
+
+    public void setObjectRegistry(ObjectSpecRegistry objectRegistry) {
+        this.objectRegistry = objectRegistry;
+    }
+
     public static void main(String[] args) {
         Gson g = new Gson();
         Roblr r = new Roblr();
@@ -64,29 +88,5 @@ public class Roblr {
         for (int i = 0; i < 10; i++) {
             System.out.println(r.generateId());
         }
-    }
-
-    public ClassRegistry getClassRegistry() {
-        return classRegistry;
-    }
-
-    public void setClassRegistry(ClassRegistry classRegistry) {
-        this.classRegistry = classRegistry;
-    }
-
-    public DefaultZeroObjRegistry getZeroObjRegistry() {
-        return zeroObjRegistry;
-    }
-
-    public void setZeroObjRegistry(DefaultZeroObjRegistry zeroObjRegistry) {
-        this.zeroObjRegistry = zeroObjRegistry;
-    }
-
-    public ObjectRegistry getObjectRegistry() {
-        return objectRegistry;
-    }
-
-    public void setObjectRegistry(ObjectRegistry objectRegistry) {
-        this.objectRegistry = objectRegistry;
     }
 }

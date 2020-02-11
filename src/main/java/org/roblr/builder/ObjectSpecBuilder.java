@@ -28,8 +28,10 @@ public class ObjectSpecBuilder {
         ObjectSpec objSpec = new DefaultObjectSpec(roblr);
         objSpec.setId(id);
         objSpec.setObjectClassName(clazz.getName());
-        roblr.getObjectRegistry().add(id, objSpec);
+        roblr.getObjectRegistry().put(id, objSpec);
         return this;
     }
     // TODO: add relator??
+
+
 }

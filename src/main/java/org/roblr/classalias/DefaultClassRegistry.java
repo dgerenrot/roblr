@@ -14,7 +14,7 @@ public class DefaultClassRegistry implements ClassRegistry {
     private Map<String, String> aliases = new HashMap<>();
 
     @Override
-    public void register(String alias, String className) throws ClassNotFoundException {
+    public void putClassName(String alias, String className) throws ClassNotFoundException {
         if (registry.containsKey(alias))
             throw new AliasAlreadyRegisteredException(null, alias);
 
@@ -29,7 +29,7 @@ public class DefaultClassRegistry implements ClassRegistry {
     }
 
     @Override
-    public void register(String alias, Class<?> clazz) {
+    public void put(String alias, Class clazz) {
         validateClass(clazz);
 
         if (registry.containsKey(alias))
