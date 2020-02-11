@@ -25,6 +25,12 @@ public class RelBuilder {
         } else {
             from = objectSpecBuilder;
         }
+
+        // TODO : maybe instead check for existing rel-d object and return that
+        if (from.getObjectSpec().getRelatedObjId(relName) != null)
+            throw new IllegalArgumentException("Relation " + relName +
+                            " already exists for " + from.getObjectSpec().getObjectClassName());
+
         from.getObjectSpec().setRelatedObjId(relName, to.getObjectSpec().getId());
 
         return objectSpecBuilder;
