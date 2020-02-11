@@ -9,7 +9,7 @@ import java.util.Map;
  * objects under test. We therefore disallow arrays, collections, etc.
  *
  */
-public class DefaultClassRegistry implements ClassRegistry {
+public class DefaultClassRegistryImpl implements ClassRegistry {
     private Map<String, Class> registry = new HashMap<>();
     private Map<String, String> aliases = new HashMap<>();
 

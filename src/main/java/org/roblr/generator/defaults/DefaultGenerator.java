@@ -13,8 +13,8 @@ public class DefaultGenerator implements Generator<Object> {
     private FieldResolver fieldResolver;
 
     public DefaultGenerator() {
-        this.setterFilterStrategy = new DefaultSetterFilterStrategy();
-        this.fieldResolver = new DefaultFieldResolver();
+        this.setterFilterStrategy = new DefaultSetterFilterStrategyImpl();
+        this.fieldResolver = new DefaultFieldResolverImpl();
     }
 
     @Override

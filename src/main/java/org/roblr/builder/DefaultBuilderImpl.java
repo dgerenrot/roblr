@@ -4,12 +4,12 @@ import org.roblr.generator.Generator;
 
 import java.util.Deque;
 
-public class DefaultBuilder<T> implements Builder<T> {
+public class DefaultBuilderImpl<T> implements Builder<T> {
 
   private Deque<StackEntry> stack;
   private Class<T> clazz;
 
-  public DefaultBuilder(Class<T> clazz) {
+  public DefaultBuilderImpl(Class<T> clazz) {
     this.clazz = clazz;
   }
 

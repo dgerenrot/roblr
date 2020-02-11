@@ -5,7 +5,7 @@ import org.roblr.Roblr;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DefaultObjectSpec implements ObjectSpec {
+public class DefaultObjectSpecImpl implements ObjectSpec {
 
     private String id;
     private String className;
@@ -15,13 +15,13 @@ public class DefaultObjectSpec implements ObjectSpec {
     private Object value;
     private Roblr roblr;
 
-    public DefaultObjectSpec(Roblr roblr) {
+    public DefaultObjectSpecImpl(Roblr roblr) {
         this();
 
         this.roblr = roblr;
     }
 
-    public DefaultObjectSpec() {
+    public DefaultObjectSpecImpl() {
         relAliases = new HashMap<>();
         fieldsSpecs = new HashMap<>();
     }

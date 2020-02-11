@@ -3,7 +3,7 @@ package org.roblr;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DefaultRegistry<T> implements Registry<T> {
+public abstract class DefaultRegistryImpl<T> implements Registry<T> {
     private Map<String, T> registry = new HashMap<>();
 
     @Override

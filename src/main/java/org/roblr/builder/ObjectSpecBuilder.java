@@ -25,7 +25,7 @@ public class ObjectSpecBuilder {
         }
 
 
-        ObjectSpec objSpec = new DefaultObjectSpec(roblr);
+        ObjectSpec objSpec = new DefaultObjectSpecImpl(roblr);
         objSpec.setId(id);
         objSpec.setObjectClassName(clazz.getName());
         roblr.getObjectRegistry().put(id, objSpec);

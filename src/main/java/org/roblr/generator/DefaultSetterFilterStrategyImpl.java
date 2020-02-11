@@ -3,7 +3,7 @@ package org.roblr.generator;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-public class DefaultSetterFilterStrategy implements SetterFilterStrategy {
+public class DefaultSetterFilterStrategyImpl implements SetterFilterStrategy {
     private static final String SETTER_PREFIX = "set";
 
     @Override

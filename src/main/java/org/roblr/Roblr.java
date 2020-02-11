@@ -4,7 +4,7 @@ package org.roblr;
 import com.google.gson.Gson;
 import org.roblr.builder.ObjectSpecRegistry;
 import org.roblr.classalias.ClassRegistry;
-import org.roblr.classalias.DefaultClassRegistry;
+import org.roblr.classalias.DefaultClassRegistryImpl;
 import org.roblr.classalias.DefaultZeroObjects;
 
 public class Roblr {
@@ -15,7 +15,7 @@ public class Roblr {
 
     public Roblr() {
         this.config = new Config();
-        this.classRegistry = new DefaultClassRegistry();
+        this.classRegistry = new DefaultClassRegistryImpl();
         this.zeroObjRegistry = new DefaultZeroObjects();
     }
 
