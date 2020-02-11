@@ -1,5 +1,6 @@
 package org.roblr.builder;
 
+import org.roblr.Roblr;
 import org.roblr.classalias.ClassRegistry;
 
 public class RelBuilder {
@@ -8,10 +9,25 @@ public class RelBuilder {
     private ObjectSpecRegistry objectRegistry;
     private ClassRegistry classRegistry;
     private String relName;
-    private boolean isReverse;
+    private boolean isBackward;
+
+    public Roblr roblr;
+
+    public RelBuilder(Roblr roblr) {
+        this.roblr = roblr;
+    }
 
     public ObjectSpecBuilder set(String id, String classAlias) {
-        return isReverse ? from : to;
+        ObjectSpecBuilder objectSpecBuilder = new ObjectSpecBuilder(roblr);
+        objectSpecBuilder.set(id, classAlias);
+        if (!isBackward) {
+            to = objectSpecBuilder;
+        } else {
+            from = objectSpecBuilder;
+        }
+        from.getObjectSpec().setRelatedObjId(relName, to.getObjectSpec().getId());
+
+        return objectSpecBuilder;
     }
 
     public ObjectSpecBuilder getFrom() {
@@ -54,11 +70,11 @@ public class RelBuilder {
         this.classRegistry = classRegistry;
     }
 
-    public boolean isReverse() {
-        return isReverse;
+    public boolean isBackward() {
+        return isBackward;
     }
 
-    public void setReverse(boolean reverse) {
-        isReverse = reverse;
+    public void setBackward(boolean reverse) {
+        isBackward = reverse;
     }
 }
