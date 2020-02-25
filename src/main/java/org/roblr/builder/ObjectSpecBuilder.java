@@ -21,7 +21,7 @@ public class ObjectSpecBuilder {
             throw new IllegalArgumentException("No class for alias " + classAlias);
         }
 
-        objectSpecBuilt = roblr.getObjectRegistry().get(id);
+        objectSpecBuilt = roblr.getObjectSpecRegistry().get(id);
 
         if (objectSpecBuilt == null) {
             if (id == null) {
@@ -31,7 +31,7 @@ public class ObjectSpecBuilder {
             objectSpecBuilt = new DefaultObjectSpecImpl(roblr);
             objectSpecBuilt.setId(id);
             objectSpecBuilt.setObjectClassName(clazz.getName());
-            roblr.getObjectRegistry().put(id, objectSpecBuilt);
+            roblr.getObjectSpecRegistry().put(id, objectSpecBuilt);
         }
 
         return this;

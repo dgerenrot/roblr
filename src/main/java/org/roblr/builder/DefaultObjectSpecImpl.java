@@ -52,7 +52,7 @@ public class DefaultObjectSpecImpl implements ObjectSpec {
     @Override
     public ObjectSpec getRelatedObjSpec(String name) {
         String id = relAliases.get(name);
-        return roblr.getObjectRegistry().get(id);
+        return roblr.getObjectSpecRegistry().get(id);
     }
 
     public void setRelatedObjId(String name, String id) {
@@ -61,6 +61,10 @@ public class DefaultObjectSpecImpl implements ObjectSpec {
 
     public void setRelatedObjSpec(String name, ObjectSpec objectSpec) {
         relAliases.put(name, objectSpec.getId());
+    }
+
+    public Iterable<String> getRelNames() {
+        return relAliases.keySet();
     }
 
     @Override

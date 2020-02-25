@@ -49,3 +49,5 @@
 - Inject Roblr into every builder,
   registry, etc. (instead several registries)?
 - Distinct generated values!
+- Abbreviations for field names?
+- Tabular view?

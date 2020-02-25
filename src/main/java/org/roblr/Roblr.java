@@ -2,29 +2,65 @@ package org.roblr;
 
 
 import com.google.gson.Gson;
+import org.roblr.builder.DefaultObjectRegistryImpl;
+import org.roblr.builder.ObjectRegistry;
+import org.roblr.builder.ObjectSpec;
 import org.roblr.builder.ObjectSpecRegistry;
 import org.roblr.classalias.ClassRegistry;
 import org.roblr.classalias.DefaultClassRegistryImpl;
 import org.roblr.classalias.DefaultZeroObjects;
 
+import java.util.*;
+
 public class Roblr {
+    public static final int CALL = 0;
+    public static final int RET = 1;
+
+
     private Config config;
     private ClassRegistry classRegistry;
     private DefaultZeroObjects zeroObjRegistry;
-    private ObjectSpecRegistry objectRegistry;
+    private ObjectSpecRegistry objectSpecRegistry;
+    private ObjectRegistry objectRegistry;
 
     public Roblr() {
         this.config = new Config();
         this.classRegistry = new DefaultClassRegistryImpl();
         this.zeroObjRegistry = new DefaultZeroObjects();
+        this.objectRegistry = new DefaultObjectRegistryImpl();
     }
 
-    public Config getConfig() {
-        return config;
-    }
+    public Object buildFromSpec(String id) {
+        ObjectSpec root = objectSpecRegistry.get(id);
+        if (root == null) {
+            throw new IllegalArgumentException("No object spec exists for id " + id);
+        }
+        int dir = CALL;
+        Deque<ObjectSpec> objSpecStack = new LinkedList<>();
+        Deque<Iterator<String>> relIterStack = new LinkedList<>();
+        objSpecStack.push(root);
 
-    public void setConfig(Config config) {
-        this.config = config;
+        relIterStack.push(root.getRelNames().iterator());
+
+        String currRel;
+        Set<String> done = new HashSet<>();
+
+        while (!objSpecStack.isEmpty()) {
+            if (dir == CALL) {
+
+                ObjectSpec curr = objSpecStack.peekFirst();
+                done.add(curr.getId());
+
+                if (relIterStack.peek().hasNext()) {
+                    String relName = relIterStack.peek().next();
+                    String newId = curr.getRelatedObjId(relName);
+                    if (done.contains(newId))
+                        continue;
+                }
+            }
+        }
+
+        return null; // TODO
     }
 
     public void setClassAlias(String alias, Class<?> clazz) {
@@ -55,6 +91,14 @@ public class Roblr {
         return sb.toString();
     }
 
+    public Config getConfig() {
+        return config;
+    }
+
+    public void setConfig(Config config) {
+        this.config = config;
+    }
+
     public ClassRegistry getClassRegistry() {
         return classRegistry;
     }
@@ -71,12 +115,12 @@ public class Roblr {
         this.zeroObjRegistry = zeroObjRegistry;
     }
 
-    public ObjectSpecRegistry getObjectRegistry() {
-        return objectRegistry;
+    public ObjectSpecRegistry getObjectSpecRegistry() {
+        return objectSpecRegistry;
     }
 
-    public void setObjectRegistry(ObjectSpecRegistry objectRegistry) {
-        this.objectRegistry = objectRegistry;
+    public void setObjectSpecRegistry(ObjectSpecRegistry objectSpecRegistry) {
+        this.objectSpecRegistry = objectSpecRegistry;
     }
 
     public static void main(String[] args) {
