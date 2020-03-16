@@ -13,7 +13,7 @@ public class DefaultZeroObjects {
 
     public DefaultZeroObjects() {
         byClass = new HashMap<>();
-        initDefaults(new DefaultClassRegistryImpl());
+        initDefaults(null);
     }
 
     public DefaultZeroObjects(ClassRegistry classRegistry) {
@@ -22,7 +22,7 @@ public class DefaultZeroObjects {
     }
 
     public void initDefaults(ClassRegistry classRegistry) {
-        this.classRegistry = classRegistry != null ? classRegistry : new DefaultClassRegistryImpl();
+        this.classRegistry = classRegistry;
         allEmptyMaps = true;
         allEmptyCollections = true;
         byClass.put(String.class, "");
