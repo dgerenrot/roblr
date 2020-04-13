@@ -43,7 +43,7 @@ public class ObjectSpecBuilder {
     // TODO: add relator??
 
     // TODO: no type checking at all?
-    // TODO: no collections?
+    // TODO: no collections (as in myObj.arrName[0])?
     public RelBuilder rel(String name) {
         RelBuilder retVal = new RelBuilder(roblr);
         retVal.setRelName(name);

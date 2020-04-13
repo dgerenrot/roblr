@@ -2,25 +2,29 @@ package org.roblr;
 
 
 import com.google.gson.Gson;
-import org.roblr.builder.DefaultObjectRegistryImpl;
-import org.roblr.builder.ObjectRegistry;
-import org.roblr.builder.ObjectSpec;
-import org.roblr.builder.ObjectSpecRegistry;
+import org.roblr.builder.*;
 import org.roblr.classalias.ClassRegistry;
 import org.roblr.classalias.DefaultClassRegistryImpl;
 import org.roblr.classalias.DefaultZeroObjects;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Method;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class Roblr {
+
+    private static final Logger logger = LoggerFactory.getLogger(Roblr.class);
+
     public static final int CALL = 0;
     public static final int RET = 1;
-
 
     private Config config;
     private ClassRegistry classRegistry;
     private DefaultZeroObjects zeroObjRegistry;
     private ObjectSpecRegistry objectSpecRegistry;
+
     private ObjectRegistry objectRegistry;
 
     public Roblr() {
@@ -28,9 +32,10 @@ public class Roblr {
         this.classRegistry = new DefaultClassRegistryImpl();
         this.zeroObjRegistry = new DefaultZeroObjects();
         this.objectRegistry = new DefaultObjectRegistryImpl();
+        this.objectSpecRegistry = new DefaultObjectSpecRegistryImpl();
     }
 
-    public Object buildFromSpec(String id) {
+    public Object buildFromSpec(String id) throws ReflectiveOperationException {
         ObjectSpec root = objectSpecRegistry.get(id);
         if (root == null) {
             throw new IllegalArgumentException("No object spec exists for id " + id);
@@ -38,8 +43,8 @@ public class Roblr {
         int dir = CALL;
         Deque<ObjectSpec> objSpecStack = new LinkedList<>();
         Deque<Iterator<String>> relIterStack = new LinkedList<>();
-        objSpecStack.push(root);
 
+        objSpecStack.push(root);
         relIterStack.push(root.getRelNames().iterator());
 
         String currRel;
@@ -47,20 +52,65 @@ public class Roblr {
 
         while (!objSpecStack.isEmpty()) {
             if (dir == CALL) {
-
-                ObjectSpec curr = objSpecStack.peekFirst();
+                ObjectSpec curr = objSpecStack.peek();
                 done.add(curr.getId());
 
                 if (relIterStack.peek().hasNext()) {
                     String relName = relIterStack.peek().next();
                     String newId = curr.getRelatedObjId(relName);
+                    //TODO: if newId null -- IllegalStateException!
+
                     if (done.contains(newId))
-                        continue;
+                        continue; // TODO: add todo instr
+
+                    objSpecStack.push(objectSpecRegistry.get(newId));
+                    relIterStack.push(objectSpecRegistry.get(newId).getRelNames().iterator());
+                } else {
+                    buildSingleConnectRels(curr);
+                    dir = RET;
                 }
+            } else {
+                objSpecStack.pop();
+                relIterStack.pop();
             }
         }
 
-        return null; // TODO
+        return objectRegistry.get(id); // TODO
+    }
+
+    private void buildSingleConnectRels(ObjectSpec curr) throws ReflectiveOperationException {
+
+        Object currObj = buildSingle(curr);
+        Class clazz = currObj.getClass();
+
+        objectRegistry.put(curr.getId(), currObj);
+
+        for (String relName : curr.getRelNames()) {
+            String relId = curr.getRelatedObjId(relName);
+            Object relObj = objectRegistry.get(relId);
+            if (relObj == null)
+                continue;
+
+            String setterName = "set" + Character.toUpperCase(relName.charAt(0)) + relName.substring(1);
+
+            Method setter = clazz.getDeclaredMethod(setterName, relObj.getClass());
+            if (setter == null) {
+                Arrays.stream(clazz.getDeclaredMethods()).filter(Predicate.isEqual(setterName))
+                        .findFirst().orElse(null);
+            }
+
+            if (setter != null) {
+                setter.invoke(currObj, relObj);
+            } else {
+                clazz.getField(relName).set(currObj, relObj);
+                logger.debug("Setter not found for class {}: {}", clazz.getName(), setterName);
+            }
+        }
+    }
+
+    private Object buildSingle(ObjectSpec curr) throws ReflectiveOperationException {
+        Class clazz = Class.forName(curr.getObjectClassName());
+        return clazz.getConstructor().newInstance();
     }
 
     public void setClassAlias(String alias, Class<?> clazz) {
@@ -115,6 +165,14 @@ public class Roblr {
         this.zeroObjRegistry = zeroObjRegistry;
     }
 
+    public ObjectRegistry getObjectRegistry() {
+        return objectRegistry;
+    }
+
+    public void setObjectRegistry(ObjectRegistry objectRegistry) {
+        this.objectRegistry = objectRegistry;
+    }
+
     public ObjectSpecRegistry getObjectSpecRegistry() {
         return objectSpecRegistry;
     }
@@ -123,6 +181,7 @@ public class Roblr {
         this.objectSpecRegistry = objectSpecRegistry;
     }
 
+    // TODO: just for testing. Remove.
     public static void main(String[] args) {
         Gson g = new Gson();
         Roblr r = new Roblr();

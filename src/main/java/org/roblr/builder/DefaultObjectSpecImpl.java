@@ -49,17 +49,22 @@ public class DefaultObjectSpecImpl implements ObjectSpec {
         return relAliases.get(name);
     }
 
+    public void setRelatedObjId(String name, String id) {
+        relAliases.put(name, id);
+    }
+
     @Override
     public ObjectSpec getRelatedObjSpec(String name) {
         String id = relAliases.get(name);
         return roblr.getObjectSpecRegistry().get(id);
     }
 
-    public void setRelatedObjId(String name, String id) {
-        relAliases.put(name, id);
-    }
-
     public void setRelatedObjSpec(String name, ObjectSpec objectSpec) {
+        if (objectSpec.getId() == null) {
+            objectSpec.setId(roblr.generateId());
+            roblr.getObjectSpecRegistry().put(objectSpec.getId(), objectSpec);
+        } // ignoring: when objId exists but does not point to right place
+
         relAliases.put(name, objectSpec.getId());
     }
 
