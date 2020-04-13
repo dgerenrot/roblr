@@ -51,3 +51,5 @@
 - Distinct generated values!
 - Abbreviations/aliases for field names?
 - Tabular view?
+- what of unfinished rels (no other endpoint)?
+-   Some checking mechanism with started() -- done() semaphore?

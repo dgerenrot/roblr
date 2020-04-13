@@ -1,12 +1,10 @@
 package org.roblr;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.roblr.builder.ObjectSpecBuilder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class RoblrTest {
 
@@ -21,16 +19,49 @@ public class RoblrTest {
     }
 
     @Test
-    public void testBuildFromSpec() throws ReflectiveOperationException {
+    public void testBuildSingleObjectFromSpec() throws ReflectiveOperationException {
         ObjectSpecBuilder osb = new ObjectSpecBuilder(roblr);
-        assertEquals("Spec for aId should not exist", null, roblr.getObjectSpecRegistry().get("aId"));
-        assertEquals("Object for aId should not exist", null, roblr.getObjectRegistry().get("aId"));
+
+        assertNull("Spec for aId should not exist", roblr.getObjectSpecRegistry().get("aId"));
+        assertNull("Object for aId should not exist", roblr.getObjectRegistry().get("aId"));
+
         osb.set("aId", "A");
-        assertNotEquals("Spec for aId should exist", null, roblr.getObjectSpecRegistry().get("aId"));
-        assertEquals("Object for aId should not exist", null, roblr.getObjectRegistry().get("aId"));
+
+        assertNotNull("Spec for aId should exist", roblr.getObjectSpecRegistry().get("aId"));
+        assertNull("Object for aId should not exist", roblr.getObjectRegistry().get("aId"));
+
         roblr.buildFromSpec("aId");
-        assertNotEquals("Object for aId should exist", null, roblr.getObjectRegistry().get("aId"));
+
+        assertNotNull("Object for aId should exist", roblr.getObjectRegistry().get("aId"));
         assertEquals("Object for aId should exist", A.class, roblr.getObjectRegistry().get("aId").getClass());
+    }
+
+    @Test
+    public void testBuildTwoRelatedFromSpec() throws ReflectiveOperationException {
+        ObjectSpecBuilder osb = new ObjectSpecBuilder(roblr);
+
+        assertNull("Spec for aId should not exist", roblr.getObjectSpecRegistry().get("aId"));
+        assertNull("Object for aId should not exist", roblr.getObjectRegistry().get("aId"));
+        assertNull("Spec for bTopId should not exist", roblr.getObjectSpecRegistry().get("bTopId"));
+        assertNull("Object for bTopId should not exist", roblr.getObjectRegistry().get("bTopId"));
+
+        ObjectSpecBuilder osb2 =  osb.set("aId", "A").rel("bTop").set("bTopId", "B");
+
+        assertNotNull("Spec for aId should exist", roblr.getObjectSpecRegistry().get("aId"));
+        assertNull("Object for aId should not exist", roblr.getObjectRegistry().get("aId"));
+        assertNotNull("Spec for bTopId should exist", roblr.getObjectSpecRegistry().get("bTopId"));
+        assertNull("Object for bTopId should not exist", roblr.getObjectRegistry().get("bTopId"));
+        assertEquals("bTop relation aId -> bTopId should exist", "bTopId",
+                     roblr.getObjectSpecRegistry().get("aId").getRelatedObjId("bTop"));
+
+        roblr.buildFromSpec("aId");
+
+        assertNotNull("Object for aId should exist", roblr.getObjectRegistry().get("aId"));
+        assertNotNull("Object for bTopId should exist", roblr.getObjectRegistry().get("bTopId"));
+        assertEquals("Object for aId should exist", A.class, roblr.getObjectRegistry().get("aId").getClass());
+        assertEquals("Object for aId should exist", B.class, roblr.getObjectRegistry().get("bTopId").getClass());
+        assertEquals("Object for aId should exist", roblr.getObjectRegistry().get("bTopId"),
+                                                    ((A) roblr.getObjectRegistry().get("aId")).getBTop());
     }
 
     private static class A {
@@ -57,19 +88,19 @@ public class RoblrTest {
             this.s = s;
         }
 
-        public B getbTop() {
+        public B getBTop() {
             return bTop;
         }
 
-        public void setbTop(B bTop) {
+        public void setBTop(B bTop) {
             this.bTop = bTop;
         }
 
-        public B getbBot() {
+        public B getBBot() {
             return bBot;
         }
 
-        public void setbBot(B bBot) {
+        public void setBBot(B bBot) {
             this.bBot = bBot;
         }
 

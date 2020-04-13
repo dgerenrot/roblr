@@ -35,6 +35,10 @@ public class Roblr {
         this.objectSpecRegistry = new DefaultObjectSpecRegistryImpl();
     }
 
+    public void buildAll() {
+        // TODO
+    }
+
     public Object buildFromSpec(String id) throws ReflectiveOperationException {
         ObjectSpec root = objectSpecRegistry.get(id);
         if (root == null) {
@@ -47,7 +51,6 @@ public class Roblr {
         objSpecStack.push(root);
         relIterStack.push(root.getRelNames().iterator());
 
-        String currRel;
         Set<String> done = new HashSet<>();
 
         while (!objSpecStack.isEmpty()) {
@@ -72,6 +75,7 @@ public class Roblr {
             } else {
                 objSpecStack.pop();
                 relIterStack.pop();
+                dir = CALL;
             }
         }
 
