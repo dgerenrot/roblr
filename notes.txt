@@ -51,5 +51,7 @@
 - Distinct generated values!
 - Abbreviations/aliases for field names?
 - Tabular view?
+- DSL: add an optional parameter to every field/rel expression
+  (set by constructor/setter/factory)
 - what of unfinished rels (no other endpoint)?
 -   Some checking mechanism with started() -- done() semaphore?
