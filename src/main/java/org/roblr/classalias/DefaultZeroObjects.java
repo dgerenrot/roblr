@@ -60,12 +60,12 @@ public class DefaultZeroObjects {
 
     public <T> T byAlias(String alias) {
         Class<T> clazz = (Class<T>) classRegistry.get(alias);
-        return (T) byClass.get(clazz);
+        return byClass(clazz);
     }
 
     public <T> T byClassName(String name) throws ClassNotFoundException {
         Class<T> clazz = (Class<T>) Class.forName(name);
-        return (T) byClass.get(clazz);
+        return byClass(clazz);
     }
 
     public ClassRegistry getClassRegistry() {
